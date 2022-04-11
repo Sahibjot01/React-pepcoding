@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- iss niche waali link mai saara algorithms implemented hai -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- reat dom=> webpage ke andar react library ki help se changes leke aao -->
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- to convert jsx to js use babel lib -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+
+    </div>
+    <script type="text/babel">
+        //Single Component:-
+        function Hello(props) {
+            let name = props.name
+            let age = props.age
+            return <h1>Hello React from {name} and age = {age}.</h1>
+        }
+        function Counter(prop){
+            let counterNo = prop.number;
+            //ham khud ek counter variable bana sakte hai but since we are using react 
+            //ham react se count ko initialise karege and uski state change karege
+            //will use react.useState
+            //ye counter to apna variable/state hai 
+            //and change counter ek function hai jo react hame dega
+            let [counter,changeCounter] = React.useState(0);
+            //create 2 function which will increment and decrement the count
+            let increment = ()=>{
+                //now to change/increment count use changeCounter function
+                changeCounter(counter+1);
+            }
+            let decrement =()=>{
+                changeCounter(counter-1);
+            }
+            return <div>
+                <button onClick={increment}>+</button>
+                <p>counter number = {counterNo} count = {counter}</p>
+                <button onClick={decrement}>-</button>
+                </div>
+        }
+        function MultipleCounter(){
+            return <div>
+                <Counter number={1}/>
+                <Counter number={2}/>
+                <Counter number={3}/>
+                
+                </div>
+        }
+        //to get html from hello component and put it inside root 
+        ReactDOM.render(<MultipleCounter></MultipleCounter>, document.querySelector("#root"));
+        //read from bottom to top
+    </script>
+
+</body>
+
+</html>

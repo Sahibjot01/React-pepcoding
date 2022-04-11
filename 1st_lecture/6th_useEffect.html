@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- iss niche waali link mai saara algorithms implemented hai -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- reat dom=> webpage ke andar react library ki help se changes leke aao -->
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- to convert jsx to js use babel lib -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <!-- axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+    </div>
+
+    <script type="text/babel">
+        let useEffect = React.useEffect;
+        function DelayedExample() {
+            //useEffect inbuilt function hai react mai 
+            //jab kisi api se data fetch karna ho to use karenge
+            //kyoki api fetch karne mai time lagta hai aur user ko blank screen nahi dikha sakte
+            //jabtak api se data fetch nahi hota tabtak loading dikhate raho 
+            //jaie he fetch hojae tab original data show karro
+            console.log("main function");
+            let [data, changeData] = React.useState("");
+            console.log("in counter function (Before useEffect)");
+            useEffect(async () => {
+                let resp = await axios.get("https://jsonplaceholder.typicode.com/todos/1")
+                console.log("inside useEffect function");
+                changeData(data = JSON.stringify(resp.data));
+            }, []);
+
+            console.log("in counter function (after useEffect)");
+            return (<div>
+                <h1>Delayed loading Example</h1>
+                {data == "" ? <p>Loading....</p> : <p>{data}</p>}
+            </div>)
+        }
+        ReactDOM.render(<DelayedExample />, document.querySelector("#root"));
+    </script>
+</body>
+
+</html>

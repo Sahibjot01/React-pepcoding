@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- iss niche waali link mai saara algorithms implemented hai -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- reat dom=> webpage ke andar react library ki help se changes leke aao -->
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- to convert jsx to js use babel lib -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <!-- axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+    </div>
+
+    <script type="text/babel">
+        function InputBox(){
+            // return (<div>
+            //     <h1>Input Box</h1>
+            //     </div>)
+            return (<div>
+                <input type="text" name="" id=""/>
+                <button>Add Task</button>
+                </div>)
+        }
+        function ListItems(){
+            // return (<div>
+            //     <h1>List items</h1>
+            //     </div>)
+            return (<div>
+                <ul><li>task 1</li>
+                <li>task 2</li>
+                <li>task 3</li></ul>
+                </div>)
+        }
+        function Todo(){
+            return(<div>
+                <h1>Todo App</h1>
+                <InputBox/>
+                <ListItems/>
+                </div>
+            )
+        }
+        ReactDOM.render(<Todo/>, document.querySelector("#root"));
+    </script>
+</body>
+
+</html>

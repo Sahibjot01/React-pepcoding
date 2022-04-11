@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- iss niche waali link mai saara algorithms implemented hai -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- reat dom=> webpage ke andar react library ki help se changes leke aao -->
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- to convert jsx to js use babel lib -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+
+    </div>
+    <script type="text/babel">
+        //Single Component:-
+        //we will receive this obj/prompt as a parameter
+        function Hello(props) {
+            let name = props.name
+            let age = props.age
+            return <h1>Hello React from {name} and age = {age}.</h1>
+        }
+        //now we want to send extra data to hello so we will send an obj while calling hello 
+        //passing obj/data is also called props
+        function MultipleHallos() {
+            return <div>
+                <Hello name="Sahib" age={21}> </Hello>
+                <Hello name="sik" age={23}> </Hello>
+                <Hello name="saj"> </Hello>
+                <Hello name="ib" age={26}> </Hello>
+            </div>
+        }
+        //to get html from hello component and put it inside root 
+        ReactDOM.render(<MultipleHallos></MultipleHallos>, document.querySelector("#root"));
+        //read from bottom to top
+    </script>
+
+</body>
+
+</html>

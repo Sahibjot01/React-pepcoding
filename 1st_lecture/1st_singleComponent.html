@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- iss niche waali link mai saara algorithms implemented hai -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- reat dom=> webpage ke andar react library ki help se changes leke aao -->
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- to convert jsx to js use babel lib -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+
+    </div>
+    <!-- we will write react code in script tag -->
+    
+    <script type="text/babel">
+        //react code :-
+        //JSX = HTML + JS
+        //Component:-
+        function Hello() {
+            return <h1>Hello React</h1>
+        }
+        //to get html from hello component and put it insside root 
+        ReactDOM.render(<Hello></Hello>, document.querySelector("#root"));
+        //read from bottom to top
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- iss niche waali link mai saara algorithms implemented hai -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- reat dom=> webpage ke andar react library ki help se changes leke aao -->
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- to convert jsx to js use babel lib -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+
+    </div>    
+    <script type="text/babel">
+        //Single Component:-
+        function Hello() {
+            return <h1>Hello React</h1>
+        }
+        //now we want to return multiple components but the thing is that JavaScript 
+        //allow us to return only single item in return statement 
+        function MultipleHallos(){
+            return <div>
+                <Hello> </Hello>
+                <Hello> </Hello>
+                <Hello> </Hello>
+                <Hello> </Hello>
+                </div>
+        }
+        //to get html from hello component and put it inside root 
+        ReactDOM.render(<MultipleHallos></MultipleHallos>, document.querySelector("#root"));
+        //read from bottom to top
+    </script>
+
+</body>
+
+</html>

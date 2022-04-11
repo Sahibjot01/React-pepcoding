@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- iss niche waali link mai saara algorithms implemented hai -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- reat dom=> webpage ke andar react library ki help se changes leke aao -->
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- to convert jsx to js use babel lib -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <!-- axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+    </div>
+
+    <script type="text/babel">
+        function InputBox() {
+            //since input type has its own state, react want us to use setState 
+            console.log("main");
+
+            let [currVal, changeCurrVal] = React.useState("");
+            //changeCurrVal function to change currVal
+            function changeInputData(event) {
+                // console.log(event.target.value);
+                changeCurrVal(currVal=event.target.value);
+            }
+            //1)text field mai initial value currVal hogi 
+
+            //2)jaise he ham input pe khuch type karenge to onchange, changeInputData ko call karega
+            //changeInputData, currVal ko change karedega and then page will re-render 
+            //and jo hamne type kiya wahi cheej input show karega due to 1st point
+
+            //3)aise he ye loop chalte jaega ham type karenge aur chnageInputData call hota rahega and currVal update hota jaega
+            //ek ek letter type karte hue 
+            return (<div>
+                <input type="text" value={currVal} onChange={changeInputData} />
+                <button>Add Task</button>
+            </div>)
+        }
+        //we cannot use simple forloop in react 
+        //only option is left is arr.map
+        function ListItems() {
+            let [tasksArr, changeTaskFunction] = React.useState(["hello", "hi", "bye"]);
+            return (<div>
+                {
+                    tasksArr.map((task) => {
+                        return <li>{task}</li>
+                    })
+                }
+            </div>)
+        }
+        function Todo() {
+            return (<div>
+                <h1>Todo App</h1>
+                <InputBox />
+                <ListItems />
+            </div>
+            )
+        }
+        ReactDOM.render(<Todo />, document.querySelector("#root"));
+    </script>
+</body>
+
+</html>
