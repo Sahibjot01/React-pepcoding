@@ -21,6 +21,12 @@
     </div>
 
     <script type="text/babel">
+        //input manages the visible data
+        //(jaise he khuch type karro input field mai to vo field mai show hota hai ussi ko internal state bolte hai)
+        //but react treats it as a bad practice(ki koi element khud na saare kaam karre, react ke through karre har kaam)
+        //so you should always do the ui changes with state variable 
+
+        //since we are/react is managing the state of input field its called controlled component
         function InputBox() {
             //since input type has its own state, react want us to use setState 
             console.log("main");
@@ -39,6 +45,7 @@
 
             //3)aise he ye loop chalte jaega ham type karenge aur chnageInputData call hota rahega and currVal update hota jaega
             //ek ek letter type karte hue 
+        
             return (<div>
                 <input type="text" value={currVal} onChange={changeInputData} />
                 <button>Add Task</button>

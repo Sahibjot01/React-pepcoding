@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- iss niche waali link mai saara algorithms implemented hai -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- reat dom=> webpage ke andar react library ki help se changes leke aao -->
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- to convert jsx to js use babel lib -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <!-- axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+    </div>
+
+    <script type="text/babel">
+        function Input(props) {
+            let [counterNo,changeCounterNo] = React.useState(1)
+            let [val,changeVal] = React.useState(1)
+            const setCounter = function(event){
+                changeCounterNo(counterNo=event.target.value);
+                console.log(counterNo);
+            }
+            const setVal = function(event){
+                changeVal(val=event.target.value)
+                console.log(val);
+            }
+            function sendData() {
+                props.acceptVal(counterNo,val);
+            }
+            return (<div>
+                <button onClick={sendData}>Reset Counter</button>
+                <br />
+                <label for="first">Counter Number</label>
+                <input type="number" id="first" value={counterNo} onChange={setCounter} />
+                <br />
+                <label for="second">Number</label>
+                <input type="number" id="second" value={val} onChange={setVal}/>
+
+            </div>
+            )
+        }
+        function SingleCounter(props) {
+            console.log("pop ki val " + props.valueToBeSet);
+            let val = props.valueToBeSet
+
+            let [currCounter, changeCounter] = React.useState(0)
+            // changeCounter(currCounter=val)
+            // if(currCounter != val){
+            //     changeCounter(currCounter+val)
+            // }
+            function increment() {
+                console.log(currCounter);
+                changeCounter(currCounter + 1)
+            }
+            function decrement() {
+                console.log(currCounter);
+                changeCounter(currCounter - 1)
+            }
+            return (
+                <div>
+                    <button onClick={increment} >+</button>
+                    <p>{currCounter}</p>
+                    <button onClick={decrement} >-</button>
+                </div>
+            )
+        }
+        function MultipleCounter(props) {
+            console.log(props);
+            console.log(props.packedData[0],props.packedData[1]);
+            let counterNo = parseInt(props.packedData[0])
+            let val = parseInt(props.packedData[1])
+            let arr = [1,2,3]
+            return (
+                <div>{
+                    arr.map((number)=>{
+                        if(number == counterNo){
+                            console.log("yeah called this one");
+                            return <SingleCounter valueToBeSet={parseInt(val)}/>
+                        }else{
+                            console.log("not you fucker");
+                            return <SingleCounter valueToBeSet={0}/>
+                        }
+
+                    })}
+                </div>
+            )
+        }
+        function Main() {
+            //2 main section banaenge
+            let [packedData,changePackedData] = React.useState([]);
+            //accept value from input
+            const acceptVal = (counterNo,val)=>{
+                console.log("inside Main "+ counterNo + " " + val);
+                let newArr = [parseInt(counterNo),parseInt(val)]
+                changePackedData(packedData=newArr)
+                console.log(packedData);
+
+            }
+            return (<div>
+                <Input acceptVal={acceptVal}/>
+                <MultipleCounter packedData={packedData}/>
+            </div>)
+        }
+
+        ReactDOM.render(< Main />, document.querySelector("#root"));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- iss niche waali link mai saara algorithms implemented hai -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- reat dom=> webpage ke andar react library ki help se changes leke aao -->
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- to convert jsx to js use babel lib -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <!-- axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+    </div>
+
+    <script type="text/babel">
+        // 1st_part
+        //now we need to send data from inputbox to listItem
+        //to send data from sibling to sibling we have to use parent
+        //ie send the data to parent first then parent will send that data to other sibling
+        //to send data to parent create a fn in parent component and call it in child component
+        //by this we can send data from child to parent component(dont forgot to send that function as a props to child fn)
+
+        //2nd_part
+        //now we can send data from child to parent, only thing left is to send this task to listItem where we can display this task
+        //but ham aisa kar nahi sakte ki ek task phele function mai accept kiya fir usse pass kardiya listItem ke props mai 
+        //kyoki page shuru mai ek baar render hoga fir ek baar value accept karke hame state change karni padegi tabhi listItem firse render hoga
+        //****(imp) isliye hamne ListItem ki state lift karke todo mai rakhi 
+        //taaki ham task array update karne ke baad usse props mai pass karde and then page will again re render
+
+        //3rd_part
+        //problem with changeTaskArr function
+        //to update the task array first we need to copy all ele from taskarr and create a new arr
+        //then add new task
+        //because changeTaskArr function will not update taskArr state if old array address is passed, if old address is passed 
+        //state won't update which inturn will not re-render the page. so always make new array and copy old array to new array then update state
+
+        function InputBox(props) {
+            //since input type has its own state, react want us to use setState 
+            let [currVal, changeCurrVal] = React.useState("");
+            //changeCurrVal function to change currVal
+            function changeInputData(event) {
+                // console.log(event.target.value);
+                changeCurrVal(currVal=event.target.value);
+            }
+            const sendTask=()=>{
+                console.log("inside InputBox and task is " +currVal);
+                props.sendTaskToParent(currVal);
+            }
+            return (<div>
+                <input type="text" value={currVal} onChange={changeInputData} />
+                <button onClick={sendTask}>Add Task</button>
+            </div>)
+        }
+
+        function ListItems(props) {
+            // console.log("task Array: " + props.tasksArr);
+            // let [tasksArr, changeTaskFunction] = React.useState(["hello", "hi", "bye"]);
+                    //we cannot use simple forloop in react 
+        //only option is left is arr.map
+            return (<div>
+                {
+                    props.tasksArr.map((task,idx) => {
+                        return <li key={idx}>{task}</li>
+                    })
+                }
+            </div>)
+        }
+        function Todo() {
+            //lifting the state up
+            let [tasksArr, changeTaskFunction] = React.useState(["hello", "hi", "bye"]);
+            //this fn will accept task from inputBox
+            const getTasksFromChildAndUpdateTaskArr = (task)=>{
+                console.log("inside Todo and task is " + task);
+                //spread fn to copy ele of array 
+                let newTaskArr = [...tasksArr,task]
+                //read 3rd point
+                changeTaskFunction(tasksArr=newTaskArr)
+
+            }
+
+            return (<div>
+                <h1>Todo App</h1>
+                <InputBox sendTaskToParent={getTasksFromChildAndUpdateTaskArr}/>
+                <ListItems tasksArr={tasksArr}/>
+            </div>
+            )
+        }
+        ReactDOM.render(<Todo />, document.querySelector("#root"));
+    </script>
+</body>
+
+</html>
