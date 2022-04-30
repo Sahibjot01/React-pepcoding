@@ -1,33 +1,8 @@
 import React from 'react';
 
 function MoviesTable(props) {
-  let {moviesArr,setMoviesArr,isLoaded, currPage,moviesToShowPerPage} = props;
+  let {filteredArr,setMoviesArr,isLoaded,startIdx} = props;
 
-  let filteredArr = [];
-  let startIdx = (currPage-1)*moviesToShowPerPage;
-  let endIdx = startIdx + moviesToShowPerPage
-  if(moviesArr){
-    filteredArr = moviesArr
-    console.log(filteredArr);
-    //search wala logic
-    if(props.searchText !== ""){
-      filteredArr = filteredArr.filter((movie)=>{
-          let lowerCaseMovie = movie.title.toLowerCase();
-          let lowerCaseSearchText = props.searchText.toLowerCase();
-          return lowerCaseMovie.includes(lowerCaseSearchText);
-      })
-  }
-    //genre wala logic
-    if(props.genre !== ""){
-      filteredArr = filteredArr.filter((movie)=>{
-        return movie.genre.name.trim() === props.genre.trim();
-      })
-    }
-    //pagination
-    // console.log(props.moviesCount);
-    
-    filteredArr = filteredArr.slice(startIdx,endIdx);
-  }
   const deleteEntry = (movieId)=>{
     // console.log(movieId);
     let newContent = filteredArr.filter((movie)=>{

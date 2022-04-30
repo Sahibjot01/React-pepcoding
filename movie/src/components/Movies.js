@@ -4,9 +4,9 @@ import MoviesTable from './MoviesTable'
 import Pagination from './Pagination'
 
 function Movies(props) {
+  let {currPage,setCurrPage} = props;
   let [searchText, setSearchText] = React.useState("");
   let [moviesToShowPerPage, setCount] = React.useState(4);
-  let [currPage,setCurrPage] = React.useState(1);
   //*******************************************taken from movies Table********************* */
   let [isLoaded,setLoaded] = useState(true);
   let [moviesArr,setMoviesArr] = useState([]);
@@ -21,12 +21,41 @@ function Movies(props) {
     }
     fetchData();
   },[])
+  let filteredArr = [];
+  let totalMoviesArr;
+  let startIdx = (currPage-1)*moviesToShowPerPage;
+  let endIdx = startIdx + moviesToShowPerPage
+  if(moviesArr){
+    filteredArr = moviesArr
+    console.log(filteredArr);
+    //search wala logic
+    if(searchText !== ""){
+      filteredArr = filteredArr.filter((movie)=>{
+          let lowerCaseMovie = movie.title.toLowerCase();
+          let lowerCaseSearchText = searchText.toLowerCase();
+          return lowerCaseMovie.includes(lowerCaseSearchText);
+      })
+  }
+    //genre wala logic
+    if(props.genre !== ""){
+      filteredArr = filteredArr.filter((movie)=>{
+        return movie.genre.name.trim() === props.genre.trim();
+      })
+    }
+    totalMoviesArr = filteredArr;
+    //pagination
+    // console.log(props.moviesCount);
+    console.log("Start idx " + typeof(startIdx) +" end idx " + typeof(endIdx) + " end");
+    filteredArr = filteredArr.slice(startIdx,endIdx);
+  }
   //************************************************************************************** */
   const setGlobalSearchText = (text)=>{
     setSearchText(text);
+    setCurrPage(1);
   }
   const setmoviesToShowPerPage = (count)=>{
-    setCount(count);
+    setCount(moviesToShowPerPage= count);
+    setCurrPage(1);
   }
   const setCurrentPage = (pageNo)=>{
     console.log("from movies fn page no is " + pageNo);
@@ -43,12 +72,12 @@ function Movies(props) {
     moviesToShowPerPage={moviesToShowPerPage} 
     genre={props.genre}
     isLoaded={isLoaded}
-    moviesArr={moviesArr} 
+    filteredArr={filteredArr} 
     setMoviesArr={setMoviesArr}
-    currPage={currPage}/>
+    startIdx={startIdx}/>
     <Pagination
     moviesToShowPerPage={moviesToShowPerPage}
-    moviesArrLength={moviesArr.length}
+    filteredArrLength={totalMoviesArr.length}
     currPage={currPage}
     setCurrentPage={setCurrentPage}/>
     </div>

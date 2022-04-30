@@ -1,9 +1,9 @@
 import React from 'react'
 
 function Pagination(props) {
-  let {moviesToShowPerPage ,moviesArrLength, currPage ,setCurrentPage} = props;
-  console.log(moviesToShowPerPage + " " + moviesArrLength);
-  let totalPages = Math.ceil(moviesArrLength/moviesToShowPerPage);
+  let {moviesToShowPerPage ,filteredArrLength, currPage ,setCurrentPage} = props;
+  console.log(moviesToShowPerPage + " " + filteredArrLength);
+  let totalPages = Math.ceil(filteredArrLength/moviesToShowPerPage);
   let pagesArr = []
   for(let i = 1; i<=totalPages;i++){
     pagesArr.push(i);

@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 function InputBox(props) {
   let [searchText, setSearchText] = React.useState("");
-  let [numberOfItems, setNumberOfItems] = React.useState(9);
+  let [numberOfItems, setNumberOfItems] = React.useState(4);
   //to set initial number of movies to display
   // props.setMoviesCount(numberOfItems);
   const handleText = (e) => {
@@ -11,8 +11,9 @@ function InputBox(props) {
     props.setGlobalSearchText(e.target.value);
   }
   const handleCount = (e) => {
-    setNumberOfItems(e.target.value);
-    props.setmoviesToShowPerPage(e.target.value);
+    let num = Number(e.target.value)
+    setNumberOfItems(num);
+    props.setmoviesToShowPerPage(num);
   }
   return (
     <>
