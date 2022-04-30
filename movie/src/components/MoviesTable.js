@@ -1,14 +1,15 @@
 import React from 'react';
 
 function MoviesTable(props) {
-  let {filteredArr,setMoviesArr,isLoaded,startIdx} = props;
+  let {filteredArr,content,setContent,isLoaded,startIdx} = props;
 
   const deleteEntry = (movieId)=>{
     // console.log(movieId);
-    let newContent = filteredArr.filter((movie)=>{
+    let restOfTheMovies = content.movies.filter((movie)=>{
       return movie._id !== movieId;
     })
-    setMoviesArr(newContent);
+    let newObject = {movies:restOfTheMovies}
+    setContent(newObject);
   }
   return (
   <div>

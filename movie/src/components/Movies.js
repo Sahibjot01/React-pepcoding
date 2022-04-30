@@ -9,7 +9,7 @@ function Movies(props) {
   let [moviesToShowPerPage, setCount] = React.useState(4);
   //*******************************************taken from movies Table********************* */
   let [isLoaded,setLoaded] = useState(true);
-  let [moviesArr,setMoviesArr] = useState([]);
+  let [content,setContent] = useState([]);
   // fetch is a feature of browser that makes the request to get data -> promise based
   useEffect(()=>{
     async function fetchData(){
@@ -17,17 +17,17 @@ function Movies(props) {
     // console.log(response);
     response = await response.json();
     setLoaded(false);
-    setMoviesArr(response.movies)
+    setContent(response)
     }
     fetchData();
   },[])
   let filteredArr = [];
-  let totalMoviesArr;
+  let totalMoviesArr =[];
   let startIdx = (currPage-1)*moviesToShowPerPage;
   let endIdx = startIdx + moviesToShowPerPage
-  if(moviesArr){
-    filteredArr = moviesArr
-    console.log(filteredArr);
+  if(content.movies){
+    filteredArr = content.movies
+    // console.log(filteredArr);
     //search wala logic
     if(searchText !== ""){
       filteredArr = filteredArr.filter((movie)=>{
@@ -45,7 +45,7 @@ function Movies(props) {
     totalMoviesArr = filteredArr;
     //pagination
     // console.log(props.moviesCount);
-    console.log("Start idx " + typeof(startIdx) +" end idx " + typeof(endIdx) + " end");
+    // console.log("Start idx " + typeof(startIdx) +" end idx " + typeof(endIdx) + " end");
     filteredArr = filteredArr.slice(startIdx,endIdx);
   }
   //************************************************************************************** */
@@ -58,24 +58,25 @@ function Movies(props) {
     setCurrPage(1);
   }
   const setCurrentPage = (pageNo)=>{
-    console.log("from movies fn page no is " + pageNo);
+    // console.log("from movies fn page no is " + pageNo);
     setCurrPage(pageNo);
   }
   return (
+    <div className='flex flex-col'>
     <div>
     <InputBox 
     setGlobalSearchText={setGlobalSearchText} 
     setmoviesToShowPerPage={setmoviesToShowPerPage}/>
+    </div>
 
     <MoviesTable 
-    searchText={searchText} 
-    moviesToShowPerPage={moviesToShowPerPage} 
-    genre={props.genre}
     isLoaded={isLoaded}
     filteredArr={filteredArr} 
-    setMoviesArr={setMoviesArr}
-    startIdx={startIdx}/>
-    <Pagination
+    content={content}
+    setContent={setContent}
+    startIdx={startIdx}/>  
+
+    <Pagination 
     moviesToShowPerPage={moviesToShowPerPage}
     filteredArrLength={totalMoviesArr.length}
     currPage={currPage}

@@ -14,12 +14,16 @@ function Main() {
   }
   return (
     <div className='flex'>
+      <div className='w-1/6'>
       <Genre setGlobalGenre={setGlobalGenre}  
       />
+      </div>
+      <div className='w-5/6'>
       <Movies genre={genre}
       currPage={currPage}
       setCurrPage={setCurrPage}
       />
+      </div>
     </div>
 
   )

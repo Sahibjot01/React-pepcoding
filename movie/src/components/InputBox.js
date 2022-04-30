@@ -17,15 +17,14 @@ function InputBox(props) {
   }
   return (
     <>
-    {/* i will work on new later */}
       <Link to="/new">
       <button className="bg-blue-500 hover:bg-blue-700 text-white 
       font-bold py-2 px-4 border border-white-700 rounded">New</button>
       </Link>
       
-      <input  className="border rounded py-1 px-1 mx-2 font-bold" 
-      type="text" value={searchText} onChange={handleText}></input>
-      <input type="number" className="border rounded py-1 px-1 mx-2 font-bold" 
+      <input  className="border rounded py-1 px-1 mx-2 text-sm font-bold" 
+      type="text" value={searchText} onChange={handleText} placeholder="Search Movie"></input>
+      <input type="number" min="1" max="12" className="border rounded py-1 px-1 mx-2 font-bold" 
       value={numberOfItems} onChange={handleCount}></input>
     </>
   )
