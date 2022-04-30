@@ -19,9 +19,9 @@ function Pagination(props) {
     <>
     {pagesArr.map((pageNo)=>{
       if(currPage === pageNo){
-          return (<button className="bg-blue-500 text-white border-2 py-2 px-3 rounded" onClick={()=>setCurrentPage(pageNo)}>{pageNo}</button>)
+          return (<button key={pageNo} className="bg-blue-500 text-white border-2 py-2 px-3 rounded" onClick={()=>setCurrentPage(pageNo)}>{pageNo}</button>)
         }else{
-          return (<button className="hover:bg-blue-500  border-2 py-2 px-3 rounded" onClick={()=>setCurrentPage(pageNo)}>{pageNo}</button>)
+          return (<button key={pageNo} className="hover:bg-blue-500  border-2 py-2 px-3 rounded" onClick={()=>setCurrentPage(pageNo)}>{pageNo}</button>)
         }
       }
     )}
